@@ -9,31 +9,26 @@ const session = require("express-session");
 const path = require("path");
 const cors = require("cors");
 const flash = require("connect-flash");
+require("dotenv").config();
+
 var app = express();
 
 // paste your mongoDB url
-// const url =
-//   "mongodb+srv://ashish142:ashis142@cluster0.3abiu.mongodb.net/?retryWrites=true&w=majority";
-
-const url =
-  "mongodb+srv://ashish142:ashish142@cluster0.3abiu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url = process.env.MONGO_DB;
 // set mongoose conntction
-mongoose.connect(url);
-// mongoose.connect(
-//   url,
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     // useCreateIndex: true,
-//     // useFindAndModify: false,
-//   },
-//   (err) => {
-//     if (err) console.log(err);
-//     else {
-//       console.log("connection Started with mongoDB");
-//     }
-//   }
-// );
+async function connectDB() {
+  try {
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connection successful");
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error.message);
+  }
+}
+
+connectDB();
 
 //  middleware
 app.use(cors());
