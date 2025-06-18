@@ -76,10 +76,20 @@ exports.delete = (req, resp) => {
   });
 };
 //Logout Route
-exports.logout = (req, resp) => {
-  req.logout();
-  req.flash("success_msg", "You are logged out");
-  resp.redirect("/user/login");
+// exports.logout = (req, resp) => {
+//   req.logout();
+//   req.flash("success_msg", "You are logged out");
+//   resp.redirect("/user/login");
+// };
+exports.logout = (req, resp, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+
+    req.flash("success_msg", "You are logged out");
+    resp.redirect("/user/login");
+  });
 };
 
 exports.profile = (req, resp) => {
