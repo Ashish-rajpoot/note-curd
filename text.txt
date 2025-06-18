@@ -1,0 +1,2 @@
+npm outdated connect-flash
+npm install connect-flash@latest
