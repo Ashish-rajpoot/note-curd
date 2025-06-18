@@ -1,2 +1,5 @@
 npm outdated connect-flash
 npm install connect-flash@latest
+
+
+git rm -r --cached node_modules
